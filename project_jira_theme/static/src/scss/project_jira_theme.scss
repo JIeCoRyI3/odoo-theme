@@ -1,0 +1,228 @@
+// Jira-like theme for Odoo Project (kanban, list, form)
+// Scoped to Project models only to avoid leaking styles globally
+
+// Atlassian-inspired palette & tokens
+$jira-blue-700: #0052CC;
+$jira-blue-600: #0C66E4;
+$jira-blue-500: #2684FF;
+$jira-blue-400: #579DFF;
+$jira-blue-100: #E9F2FF;
+$jira-neutral-900: #172B4D;
+$jira-neutral-700: #44546F;
+$jira-neutral-500: #6B778C;
+$jira-neutral-300: #B3BAC5;
+$jira-neutral-200: #DFE1E6;
+$jira-neutral-100: #F4F5F7;
+$jira-success-500: #36B37E;
+$jira-warning-500: #FFAB00;
+$jira-danger-500: #DE350B;
+
+$jira-elevation-1: 0 1px 1px rgba(9, 30, 66, 0.15), 0 0 1px rgba(9, 30, 66, 0.31);
+$jira-elevation-2: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+
+$jira-font-stack: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+
+// Scope: only inside Project views
+.o_web_client .o_action_manager {
+  .o_view_controller[data-model="project.task"],
+  .o_view_controller[data-model="project.project"] {
+    color: $jira-neutral-900;
+    font-family: $jira-font-stack;
+
+    // Control panel (breadcrumbs, search, buttons)
+    .o_control_panel {
+      background: $jira-neutral-100;
+      border-bottom: 1px solid $jira-neutral-200;
+
+      .o_breadcrumb .breadcrumb-item a,
+      .o_breadcrumb .breadcrumb-item.active,
+      .o_cp_searchview,
+      .o_cp_switch_buttons .btn {
+        color: $jira-neutral-700;
+      }
+
+      .btn-primary {
+        background: $jira-blue-700;
+        border-color: $jira-blue-700;
+        color: #fff;
+
+        &:hover {
+          background: $jira-blue-600;
+          border-color: $jira-blue-600;
+        }
+        &:active,
+        &.active {
+          background: $jira-blue-500;
+          border-color: $jira-blue-500;
+        }
+      }
+    }
+
+    // Kanban view
+    .o_kanban_view {
+      background: $jira-neutral-100;
+      padding: 8px 8px 16px 8px;
+
+      // Columns
+      .o_kanban_group {
+        background: transparent;
+        border: 0;
+        margin: 0 8px;
+
+        .o_kanban_header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 8px;
+          margin: 6px 0 8px 0;
+          border-bottom: 2px solid $jira-neutral-200;
+          color: $jira-neutral-700;
+          text-transform: none;
+          font-weight: 600;
+
+          .o_kanban_quick_add, .o_kanban_config {
+            .btn, button {
+              color: $jira-neutral-700;
+              border-color: transparent;
+              &:hover { color: $jira-neutral-900; background: $jira-neutral-100; }
+            }
+          }
+        }
+
+        // Drop zone feedback
+        &.o_kanban_group_drop_zone,
+        &.o_group_highlight {
+          outline: 2px dashed $jira-blue-400;
+          outline-offset: 4px;
+          background: $jira-blue-100;
+        }
+      }
+
+      // Cards
+      .o_kanban_record,
+      .o_kanban_record .o_kanban_card {
+        background: #fff;
+        border: 1px solid $jira-neutral-200;
+        border-radius: 8px;
+        box-shadow: $jira-elevation-1;
+        transition: box-shadow 120ms ease, transform 120ms ease, border-color 120ms ease;
+      }
+
+      .o_kanban_record {
+        padding: 8px 10px;
+        margin: 8px 0;
+
+        &:hover {
+          box-shadow: $jira-elevation-2;
+          transform: translateY(-1px);
+          border-color: $jira-neutral-300;
+        }
+
+        // Drag mirrors/helpers across engines
+        &.ui-sortable-helper,
+        &.o_kanban_record_drag,
+        &.o_dragging,
+        &.o_kanban_ghost {
+          box-shadow: $jira-elevation-2;
+          transform: rotate(1deg);
+          border-color: $jira-blue-400;
+        }
+
+        .o_kanban_record_title, .o_text_block, .o_kanban_primary_left {
+          color: $jira-neutral-900;
+          font-weight: 600;
+        }
+
+        .o_kanban_tags, .o_tag, .badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: $jira-neutral-100;
+          color: $jira-neutral-700;
+          border: 1px solid $jira-neutral-200;
+          border-radius: 4px;
+          padding: 2px 6px;
+          font-size: 12px;
+          line-height: 1.3;
+
+          &.badge-primary { background: $jira-blue-100; color: $jira-blue-700; border-color: $jira-blue-400; }
+          &.badge-success { background: rgba($jira-success-500, 0.12); color: $jira-success-500; border-color: rgba($jira-success-500, 0.4); }
+          &.badge-warning { background: rgba($jira-warning-500, 0.12); color: #7A5A00; border-color: rgba($jira-warning-500, 0.4); }
+          &.badge-danger  { background: rgba($jira-danger-500, 0.12);  color: $jira-danger-500;  border-color: rgba($jira-danger-500, 0.4); }
+        }
+
+        .o_priority, .o_priority_star {
+          color: $jira-warning-500;
+        }
+      }
+    }
+
+    // List view
+    .o_list_view {
+      background: #fff;
+      border: 1px solid $jira-neutral-200;
+      border-radius: 8px;
+      overflow: hidden;
+
+      thead th {
+        background: $jira-neutral-100;
+        color: $jira-neutral-700;
+        border-bottom: 1px solid $jira-neutral-200;
+        font-weight: 600;
+      }
+      tbody tr {
+        border-bottom: 1px solid $jira-neutral-200;
+        &:hover { background: $jira-blue-100; }
+        &.o_data_row_selected { background: lighten($jira-blue-100, 2%); }
+      }
+    }
+
+    // Form view
+    .o_form_view {
+      background: #fff;
+      border: 1px solid $jira-neutral-200;
+      border-radius: 8px;
+      padding: 12px 12px 4px 12px;
+
+      .o_form_statusbar {
+        background: $jira-neutral-100;
+        border-bottom: 1px solid $jira-neutral-200;
+        padding: 8px 8px;
+
+        .btn-primary {
+          background: $jira-blue-700;
+          border-color: $jira-blue-700;
+          &:hover { background: $jira-blue-600; border-color: $jira-blue-600; }
+        }
+      }
+
+      .o_group .o_field_widget.o_readonly_modifier {
+        border: 1px solid transparent;
+        border-radius: 6px;
+        padding: 2px 6px;
+        &:hover { background: $jira-neutral-100; border-color: $jira-neutral-200; }
+      }
+    }
+
+    // Buttons general
+    .btn.btn-secondary {
+      background: #fff;
+      color: $jira-neutral-700;
+      border: 1px solid $jira-neutral-200;
+      &:hover { background: $jira-neutral-100; color: $jira-neutral-900; }
+    }
+    .btn.btn-primary { // ensure primary consistency
+      background: $jira-blue-700;
+      border-color: $jira-blue-700;
+      &:hover { background: $jira-blue-600; border-color: $jira-blue-600; }
+      &:active, &.active { background: $jira-blue-500; border-color: $jira-blue-500; }
+    }
+
+    // Chips (e.g., assignees)
+    .o_avatar, .o_avatar_small, .o_m2o_avatar {
+      box-shadow: 0 0 0 2px #fff, 0 0 0 3px $jira-neutral-200;
+      border-radius: 50%;
+    }
+  }
+}
+
