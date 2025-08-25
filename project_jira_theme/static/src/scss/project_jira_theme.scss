@@ -22,12 +22,25 @@ $jira-elevation-2: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31
 
 $jira-font-stack: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
 
-// Scope: only inside Project views
-.o_web_client .o_action_manager {
-  .o_view_controller[data-model="project.task"],
-  .o_view_controller[data-model="project.project"] {
-    color: $jira-neutral-900;
-    font-family: $jira-font-stack;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --bs-primary: #{$jira-blue-700};
+  --bs-primary-rgb: 0, 82, 204;
+  --bs-link-color: #{$jira-blue-600};
+  --bs-link-hover-color: #{$jira-blue-500};
+  --o-brand-primary: #{$jira-blue-700};
+  --o-brand-odoo: #{$jira-blue-700};
+  --bs-success: #{$jira-success-500};
+  --bs-warning: #{$jira-warning-500};
+  --bs-danger: #{$jira-danger-500};
+  --bs-font-sans-serif: #{$jira-font-stack};
+}
+
+// Global scope across backend (CSS-only; no view checks)
+.o_web_client {
+  color: $jira-neutral-900;
+  font-family: $jira-font-stack;
 
     // Control panel (breadcrumbs, search, buttons)
     .o_control_panel {
@@ -223,6 +236,5 @@ $jira-font-stack: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto San
       box-shadow: 0 0 0 2px #fff, 0 0 0 3px $jira-neutral-200;
       border-radius: 50%;
     }
-  }
 }
 
