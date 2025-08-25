@@ -1,7 +1,7 @@
 {
     "name": "Project Jira Theme",
     "version": "17.0.1.0.0",
-    "summary": "Jira-like styling for the Project module (kanban, list, form)",
+    "summary": "Jira-like styling for the Project kanban view only",
     "description": "Apply Jira-inspired colors, typography, hover/drag behaviors to Odoo Project.",
     "category": "Project",
     "license": "LGPL-3",
